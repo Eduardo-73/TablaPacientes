@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,14 +18,13 @@ import java.util.List;
 public class Ficheros {
 
     public static List<Paciente> leerFichero(String ruta) throws IOException {
+        List<Paciente> lista = new ArrayList<>();
         ObjectMapper mapeador = new ObjectMapper();
         mapeador.registerModule(new JavaTimeModule());
 
-        List<Paciente> lista = mapeador.readValue(new File(ruta),
+        lista = mapeador.readValue(new File(ruta),
                 mapeador.getTypeFactory().constructCollectionType(List.class,
                         Paciente.class));
         return lista;
     }
-    
-    
 }
